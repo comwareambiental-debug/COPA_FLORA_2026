@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>COPA FLORA 2026</title>
+
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+
+    <div class="contenedor">
+
+        <h1>🏆 COPA FLORA 2026</h1>
+
+        <h2>Torneo Ambiental ComWare</h2>
+
+        <input
+        id="nombre"
+        type="text" 
+        placeholder="Nombre del participante">
+
+        <input
+        id="equipo"
+        type="text"
+        placeholder="Equipo">
+
+        <button onclick="ingresar()">
+
+            Ingresar al torneo
+
+        </button>
+
+    </div>
+    <script>
+
+function ingresar(){
+
+const nombre =
+document.getElementById("nombre").value;
+
+const equipo =
+document.getElementById("equipo").value;
+
+if(nombre=="" || equipo==""){
+
+alert("Debes ingresar nombre y equipo");
+
+return;
+
+}
+
+localStorage.setItem("nombre",nombre);
+localStorage.setItem("equipo",equipo);
+
+window.location="juego.html";
+
+}
+
+</script>
+</body>
+
+</html>

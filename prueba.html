@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Prueba COPA FLORA</title>
+</head>
+<body>
+
+<button onclick="guardar()">
+Guardar prueba
+</button>
+
+<script>
+
+function guardar(){
+
+fetch("https://script.google.com/macros/s/AKfycbz97_36DDi1Vmsj2y_6Nc6ZXxgG5PM21wYy2PNXRxk33r_Rqt0o9T09Ywbi3Zpq8Czx/exec",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+nombre:"Steven",
+equipo:"Ambiental",
+puntaje:10
+
+})
+
+})
+.then(response=>response.text())
+.then(data=>{
+
+alert("Registro enviado");
+
+console.log(data);
+
+})
+.catch(error=>{
+
+console.log(error);
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
