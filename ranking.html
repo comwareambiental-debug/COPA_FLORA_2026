@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ranking COPA FLORA 2026</title>
+
+<link rel="stylesheet" href="css/ranking.css">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h1>🏆 COPA FLORA</h1>
+
+<h2>2026</h2>
+
+<a href="index.html">
+JUGAR
+</a>
+
+<a href="ranking.html">
+RANKING
+</a>
+
+</div>
+
+<div class="contenido">
+
+<h1 class="titulo">
+🏆 Ranking COPA FLORA 2026
+</h1>
+
+<div id="podio">
+
+</div>
+
+<div class="lista" id="listaRanking">
+
+</div>
+
+</div>
+
+<script>
+
+const API_RANKING =
+"https://script.google.com/macros/s/AKfycbz97_36DDi1Vmsj2y_6Nc6ZXxgG5PM21wYy2PNXRxk33r_Rqt0o9T09Ywbi3Zpq8Czx/exec";
+
+async function cargarRanking(){
+
+const respuesta =
+await fetch(API_RANKING);
+
+const datos =
+await respuesta.json();
+
+const podio =
+document.getElementById("podio");
+
+const lista =
+document.getElementById("listaRanking");
+
+podio.innerHTML = "";
+lista.innerHTML = "";
+
+if(datos[1]){
+
+podio.innerHTML += `
+
+<div class="card plata">
+
+<div class="medalla">
+🥈
+</div>
+
+<div class="equipo">
+${datos[1].equipo}
+</div>
+
+<div class="participante">
+${datos[1].nombre}
+</div>
+
+<div class="puntos">
+${datos[1].puntaje} pts
+</div>
+
+</div>
+
+`;
+
+}
+
+if(datos[0]){
+
+podio.innerHTML += `
+
+<div class="card oro">
+
+<div class="medalla">
+🥇
+</div>
+
+<div class="equipo">
+${datos[0].equipo}
+</div>
+
+<div class="participante">
+${datos[0].nombre}
+</div>
+
+<div class="puntos">
+${datos[0].puntaje} pts
+</div>
+
+</div>
+
+`;
+
+}
+
+if(datos[2]){
+
+podio.innerHTML += `
+
+<div class="card bronce">
+
+<div class="medalla">
+🥉
+</div>
+
+<div class="equipo">
+${datos[2].equipo}
+</div>
+
+<div class="participante">
+${datos[2].nombre}
+</div>
+
+<div class="puntos">
+${datos[2].puntaje} pts
+</div>
+
+</div>
+
+`;
+
+}
+
+for(let i=3;i<datos.length;i++){
+
+lista.innerHTML += `
+
+<div class="fila">
+
+<div class="posicion">
+${i+1}°
+</div>
+
+<div class="datos">
+
+<div class="equipoLista">
+${datos[i].equipo}
+</div>
+
+<div class="nombreLista">
+${datos[i].nombre}
+</div>
+
+</div>
+
+<div class="puntaje">
+${datos[i].puntaje}
+</div>
+
+</div>
+
+`;
+
+}
+
+}
+
+cargarRanking();
+
+setInterval(
+cargarRanking,
+15000
+);
+
+</script>
+
+</body>
+
+</html>
