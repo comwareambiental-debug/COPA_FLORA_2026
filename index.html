@@ -2,63 +2,155 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <title>COPA FLORA 2026</title>
+<meta charset="UTF-8">
+<title>COPA FLORA 2026</title>
 
-    <link rel="stylesheet" href="css/estilos.css">
+<link rel="stylesheet" href="css/estilos.css">
+
 </head>
 
 <body>
 
-    <div class="contenedor">
+<div class="contenedor">
 
-        <h1>🏆 COPA FLORA 2026</h1>
+    <h1>🏆 COPA FLORA 2026</h1>
 
-        <h2>Torneo Ambiental ComWare</h2>
+    <h2>Torneo Ambiental ComWare</h2>
 
-        <input
-        id="nombre"
-        type="text" 
-        placeholder="Nombre del participante">
+    <input
+    id="nombre"
+    type="text"
+    placeholder="Nombre del participante">
 
-        <input
-        id="equipo"
-        type="text"
-        placeholder="Equipo">
+    <input
+    id="equipo"
+    type="text"
+    placeholder="Equipo">
 
-        <button onclick="ingresar()">
+    <button onclick="ingresar()">
+        Ingresar al torneo
+    </button>
 
-            Ingresar al torneo
+    <!-- SOLO PARA PRUEBAS -->
+    <button onclick="reiniciarJugador()">
+        Reiniciar jugador
+    </button>
 
-        </button>
+</div>
 
-    </div>
-    <script>
+<script>
 
-function ingresar(){
+const API_URL =
+"https://script.google.com/macros/s/AKfycbz97_36DDi1Vmsj2y_6Nc6ZXxgG5PM21wYy2PNXRxk33r_Rqt0o9T09Ywbi3Zpq8Czx/exec";
 
-const nombre =
-document.getElementById("nombre").value;
+async function ingresar(){
 
-const equipo =
-document.getElementById("equipo").value;
+    const yaJugo =
+    localStorage.getItem(
+        "copa_flora_jugo"
+    );
 
-if(nombre=="" || equipo==""){
+    if(yaJugo){
 
-alert("Debes ingresar nombre y equipo");
+        alert(
+            "⚠️ Ya participaste en la COPA FLORA 2026"
+        );
 
-return;
+        return;
+    }
+
+    const nombre =
+    document.getElementById(
+        "nombre"
+    ).value.trim();
+
+    const equipo =
+    document.getElementById(
+        "equipo"
+    ).value.trim();
+
+    if(nombre === "" || equipo === ""){
+
+        alert(
+            "Debes ingresar nombre y equipo"
+        );
+
+        return;
+    }
+
+    try{
+
+        const respuesta =
+        await fetch(
+            API_URL +
+            "?equipo=" +
+            encodeURIComponent(
+                equipo
+            )
+        );
+
+        const resultado =
+        await respuesta.json();
+
+        if(resultado.existe){
+
+            alert(
+                "⚠️ El equipo ya registró una participación"
+            );
+
+            return;
+
+        }
+
+    }catch(error){
+
+        alert(
+            "Error validando el equipo"
+        );
+
+        console.error(error);
+
+        return;
+
+    }
+
+    localStorage.setItem(
+        "nombre",
+        nombre
+    );
+
+    localStorage.setItem(
+        "equipo",
+        equipo
+    );
+
+    window.location =
+    "juego.html";
 
 }
 
-localStorage.setItem("nombre",nombre);
-localStorage.setItem("equipo",equipo);
+function reiniciarJugador(){
 
-window.location="juego.html";
+    localStorage.removeItem(
+        "copa_flora_jugo"
+    );
+
+    localStorage.removeItem(
+        "nombre"
+    );
+
+    localStorage.removeItem(
+        "equipo"
+    );
+
+    alert(
+        "✅ Jugador reiniciado"
+    );
 
 }
 
 </script>
+
 </body>
 
 </html>
