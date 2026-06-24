@@ -84,19 +84,51 @@ transform:translateY(-10px);
 }
 
 .oro{
-height:340px;
-background:linear-gradient(180deg,#fde047,#facc15);
-animation:brillo 2s infinite;
+
+background:
+linear-gradient(
+180deg,
+#fde047,
+#facc15
+);
+
+height:380px;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
 }
 
 .plata{
-height:280px;
-background:linear-gradient(180deg,#e5e7eb,#cbd5e1);
+
+background:
+linear-gradient(
+180deg,
+#e5e7eb,
+#cbd5e1
+);
+
+height:320px;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
 }
 
 .bronce{
-height:240px;
-background:linear-gradient(180deg,#fdba74,#ea580c);
+
+background:
+linear-gradient(
+180deg,
+#fdba74,
+#ea580c
+);
+
+height:280px;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
 }
 
 @keyframes brillo{
