@@ -71,12 +71,15 @@ flex-wrap:wrap;
 }
 
 .card{
-width:250px;
+width:260px;
 border-radius:25px;
 padding:25px;
 text-align:center;
 box-shadow:0 10px 30px rgba(0,0,0,.35);
 transition:.3s;
+display:flex;
+flex-direction:column;
+justify-content:center;
 }
 
 .card:hover{
@@ -84,51 +87,19 @@ transform:translateY(-10px);
 }
 
 .oro{
-
-background:
-linear-gradient(
-180deg,
-#fde047,
-#facc15
-);
-
 height:380px;
-
-display:flex;
-flex-direction:column;
-justify-content:center;
+background:linear-gradient(180deg,#fde047,#facc15);
+animation:brillo 2s infinite;
 }
 
 .plata{
-
-background:
-linear-gradient(
-180deg,
-#e5e7eb,
-#cbd5e1
-);
-
 height:320px;
-
-display:flex;
-flex-direction:column;
-justify-content:center;
+background:linear-gradient(180deg,#e5e7eb,#cbd5e1);
 }
 
 .bronce{
-
-background:
-linear-gradient(
-180deg,
-#fdba74,
-#ea580c
-);
-
 height:280px;
-
-display:flex;
-flex-direction:column;
-justify-content:center;
+background:linear-gradient(180deg,#fdba74,#ea580c);
 }
 
 @keyframes brillo{
@@ -143,20 +114,20 @@ margin-bottom:15px;
 }
 
 .equipo{
-font-size:32px;
+font-size:34px;
 font-weight:900;
 text-transform:uppercase;
-margin-bottom:10px;
+margin-bottom:15px;
 word-break:break-word;
 }
 
 .participante{
-font-size:18px;
+font-size:20px;
 margin-bottom:15px;
 }
 
 .puntos{
-font-size:30px;
+font-size:32px;
 font-weight:bold;
 }
 
