@@ -26,12 +26,13 @@ text-align:center;
 box-shadow:0px 0px 25px rgba(0,0,0,.4);
 }
 
-Img{
+#imagen{
 width:100%;
 max-height:450px;
 object-fit:contain;
-border-radius:10px;
+border-radius:15px;
 margin-bottom:20px;
+box-shadow:0 5px 20px rgba(0,0,0,.15);
 }
 
 .opcion{
@@ -60,7 +61,18 @@ font-size:28px;
 font-weight:bold;
 margin-bottom:20px;
 }
+#mensaje{
 
+height:50px;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-size:24px;
+font-weight:bold;
+
+}
 </style>
 
 </head>
@@ -68,8 +80,33 @@ margin-bottom:20px;
 <body>
 
 <div class="contenedor">
+    <div id="marcador" style="
+font-size:24px;
+font-weight:bold;
+margin-bottom:15px;
+color:#166534;">
+⚽ Pregunta 1 / 10
+</div>
 
-<img id="imagen" src="Img/pregunta1.jpeg">
+<div style="
+width:100%;
+height:15px;
+background:#ddd;
+border-radius:20px;
+margin-bottom:20px;">
+
+<div id="barra" style="
+height:15px;
+width:10%;
+background:#16a34a;
+border-radius:20px;">
+</div>
+
+</div>
+
+<div id="mensaje"></div>
+
+<img id="imagen">
 
 <div id="pregunta"></div>
 
@@ -210,6 +247,11 @@ let reloj;
 function cargarPregunta(){
 
 const p = preguntas[actual];
+document.getElementById("marcador").innerHTML =
+"⚽ Pregunta " + (actual+1) + " / " + preguntas.length;
+
+document.getElementById("barra").style.width =
+((actual+1)/preguntas.length*100)+"%";
 
 document.getElementById("pregunta").innerHTML = p.pregunta;
 
@@ -252,6 +294,38 @@ siguientePregunta();
 
 }
 
+function sonidoCorrecto(){
+
+const audio = new AudioContext();
+
+const osc = audio.createOscillator();
+
+osc.frequency.value = 700;
+
+osc.connect(audio.destination);
+
+osc.start();
+
+osc.stop(audio.currentTime + 0.15);
+
+}
+
+function sonidoIncorrecto(){
+
+const audio = new AudioContext();
+
+const osc = audio.createOscillator();
+
+osc.frequency.value = 200;
+
+osc.connect(audio.destination);
+
+osc.start();
+
+osc.stop(audio.currentTime + 0.25);
+
+}
+
 function responder(valor){
 
 clearInterval(reloj);
@@ -269,27 +343,44 @@ if(correcta=="D" && valor.startsWith("D")) acerto=true;
 if(correcta=="Verdadero" && valor=="Verdadero") acerto=true;
 if(correcta=="Falso" && valor=="Falso") acerto=true;
 
+const mensaje =
+document.getElementById("mensaje");
+
 if(acerto){
 
 puntaje += 100 + (tiempo * 5);
 
-alert("✅ Correcto");
+sonidoCorrecto();
+
+mensaje.innerHTML =
+"<h2 style='color:green'>✅ Correcto</h2>";
 
 }else{
 
-alert("❌ Incorrecto");
+sonidoIncorrecto();
+
+mensaje.innerHTML =
+"<h2 style='color:red'>❌ Incorrecto</h2>";
 
 }
+
+setTimeout(()=>{
+
+mensaje.innerHTML="";
 
 siguientePregunta();
 
+},1000);
+
 }
+
+
 
 function siguientePregunta(){
 
 actual++;
 
-if(actual>=preguntas.length){
+if(actual>=preguntas.length){   
 
 finalizarJuego();
 
@@ -334,17 +425,39 @@ console.error(error);
 
 document.querySelector(".contenedor").innerHTML = `
 
-<img src="Img/final.jpeg">
+<img src="Img/final.jpeg"
+style="
+width:100%;
+max-height:350px;
+object-fit:cover;
+border-radius:20px;">
 
-<h1>🏆 Juego Finalizado</h1>
+<h1 style="color:#166534;">
+🏆 COPA FLORA 2026
+</h1>
 
-<h2>${nombre}</h2>
+<h2>
+${nombre}
+</h2>
 
-<h3>Equipo: ${equipo}</h3>
+<h3>
+🌿 Equipo: ${equipo}
+</h3>
 
-<h1>Puntaje: ${puntaje}</h1>
+<h1 style="
+font-size:70px;
+color:#16a34a;">
+${puntaje}
+</h1>
 
-<p>Resultado enviado correctamente</p>
+<h2>PUNTOS</h2>
+
+<button
+onclick="window.location='ranking.html'">
+
+🏅 VER RANKING
+
+</button>
 
 `;
 
